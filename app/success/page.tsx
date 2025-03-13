@@ -119,33 +119,19 @@ export default function SuccessPage() {
     }
   }, []);
 
-  const handleJoinTelegram = async () => {
-    toast.info("Processing your request...", { autoClose: 2000 });
+  const handleJoinTelegram = () => {
+    window.location.href = "https://t.me/stablehold";
   
-    if (!email) {
-      toast.error("Error: Email not provided!");
-      console.error("Error: Email not provided");
-      return;
-    }
-  
-    try {
-      const { data, error } = await supabase
-        .from("wishlists")
-        .insert([{ email, joined_telegram: true }]);
-  
-      if (error) {
-        toast.error(`Error saving email: ${error.message}`);
+    // Save email in the background without blocking redirection
+    (async () => {
+      if (!email) return;
+      try {
+        await supabase.from("wishlists").insert([{ email, joined_telegram: true }]);
+        localStorage.removeItem("user_email"); // Clean up storage
+      } catch (error) {
         console.error("Error saving email:", error);
-        return;
       }
-  
-      toast.success("Successfully saved! Redirecting to Telegram...");
-  
-      localStorage.removeItem("user_email");
-    } catch (err) {
-      toast.error("Unexpected error! Please try again.");
-      console.error("Unexpected error:", err);
-    }
+    })();
   };
 
   return (
