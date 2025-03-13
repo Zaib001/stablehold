@@ -747,7 +747,7 @@ export default function EnigmaticSystem({
 
           {/* Waitlist Form */}
           <div
-            className={`${themeClasses.bgSecondary} rounded-lg p-3 sm:p-4 transition-opacity duration-1000 delay-700 opacity-100`}
+            className={`${themeClasses.bgSecondary} rounded-lg p-3 sm:p-4 transition-opacity duration-1000 delay-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}
           >
             <div className="flex items-center justify-between mb-3">
               <div className={`text-xs ${themeClasses.textSecondary}`}>
