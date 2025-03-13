@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 157 74% 40%;
+
+    --primary: 157 74% 40%;
+    --primary-foreground: 0 0% 0%;
+
+    --muted: 157 74% 10%;
+    --muted-foreground: 157 74% 60%;
+  }
+
+  /* Sunset theme variables */
+  .theme-sunset {
+    --background: 0 0% 0%;
+    --foreground: 33 100% 50%;
+
+    --primary: 33 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --muted: 33 100% 10%;
+    --muted-foreground: 33 100% 60%;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-black text-emerald-500 font-mono;
+    overscroll-behavior: none;
+  }
+
+  /* Apply sunset theme text color */
+  .theme-sunset {
+    @apply text-amber-500;
+  }
+
+  @media (prefers-reduced-motion) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Ensure background image covers viewport on iOS */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+
+  html {
+    height: -webkit-fill-available;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Ensure content is centered on all devices */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remove the fixed position and overflow hidden that was causing issues */
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    height: 100%;
+  }
+}
+
+/* Add the scanlines animation keyframes to the CSS file */
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Improve animation performance */
+.animate-gpu {
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
