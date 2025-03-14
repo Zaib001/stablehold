@@ -40,17 +40,18 @@ export default function EnigmaticSystem({
   const router = useRouter();
   // Calculate current progress based on days elapsed
   const calculateCurrentProgress = () => {
-    // Start date: March 7, 2025 (based on the context)
-    const startDate = new Date("2025-03-07T00:00:00-05:00"); // EST timezone
+    // Define the fixed start date (March 7, 2025, at midnight EST)
+    const startDate = new Date(Date.UTC(2025, 2, 7, 5, 0, 0)); // EST = UTC-5 (March = 2 in JS)
 
-    // Current date in EST
-    const now = new Date();
-    const estOptions = { timeZone: "America/New_York" };
-    const estNow = new Date(now.toLocaleString("en-US", estOptions));
+    // Get the current date in UTC
+    const nowUtc = new Date();
 
-    // Calculate days elapsed (floor to get whole days)
+    // Convert UTC time to EST by subtracting 5 hours
+    const nowEst = new Date(nowUtc.getUTCFullYear(), nowUtc.getUTCMonth(), nowUtc.getUTCDate());
+
+    // Calculate days elapsed since start date
     const daysElapsed = Math.floor(
-      (estNow.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+      (nowEst.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
     );
 
     // Base progress (20%) + days elapsed (1% per day)
@@ -58,7 +59,8 @@ export default function EnigmaticSystem({
 
     // Cap at 100%
     return Math.min(calculatedProgress, 100);
-  };
+};
+
 
   // Update the fallback weather data to match Lexington's typical values
   const fallbackWeatherData: WeatherData = {
