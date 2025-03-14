@@ -10,10 +10,13 @@ const spaceMono = Space_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Stablehold HQ System",
+  title: "Stablehold | Get early access to Stablehold",
+  icons: {
+    icon: '../public/favicon.png', 
+  },
   description: "Enigmatic system countdown",
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export const viewport: Viewport = {
   width: "device-width",
