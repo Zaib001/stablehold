@@ -114,7 +114,7 @@ export default function EnigmaticSystem({
   // Loading phase labels - updated to replace "LOADING" with "SHIPPING"
   const phaseLabels = ["INITIALIZING", "VERIFYING", "SHIPPING"];
 
- onst handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
