@@ -13,7 +13,8 @@ import Link from "next/link";
 import { submitEmail } from "@/app/actions/email-actions";
 // Import useRouter at the top of the file
 import { useRouter } from "next/navigation";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Update the WeatherData interface to match the free API data structure
 interface WeatherData {
   temp: number;
@@ -113,17 +114,28 @@ export default function EnigmaticSystem({
   // Loading phase labels - updated to replace "LOADING" with "SHIPPING"
   const phaseLabels = ["INITIALIZING", "VERIFYING", "SHIPPING"];
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+ onst handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
       localStorage.setItem("user_email", email); // Store email temporarily
 
+      // Show toast notification
+      toast.success(`Welcome, ${email}! You have successfully logged in.`, {
+        position: "top-right",
+        autoClose: 3000, // Closes after 3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
       // Redirect to success page
       router.push("/success");
     } catch (error) {
       console.error("Error submitting email:", error);
+      toast.error("Failed to log in. Please try again.");
     }
   };
   // Fetch real weather data
